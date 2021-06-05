@@ -1,0 +1,22 @@
+{
+  "name": "natours-api",
+  "version": "1.0.0",
+  "description": "Learning node, express and mongo DB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iarpittomar/natours-api.git"
+  },
+  "author": "Arpit Tomar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iarpittomar/natours-api/issues"
+  },
+  "homepage": "https://github.com/iarpittomar/natours-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
