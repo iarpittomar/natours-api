@@ -3,7 +3,24 @@ const fs = require("fs");
 
 const app = express();
 
-app.use(express.json());
+//How req, response lifecycle works?
+// Request ------> Middleware(next) -------> Middleware(next) ----> Route(res.send) -----> Response
+
+app.use(express.json()); //use is used to use middleware
+
+//this is the middleware that will apply on each and every req
+//middleware used to call in seqence of code writing
+app.use((req, res, next) => {
+  console.log("Hello from the middleware");
+  next();
+});
+
+//this is also a middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  //Don't forget to call next() function in a middleware
+  next();
+});
 
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
@@ -12,6 +29,7 @@ const tours = JSON.parse(
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: "success",
+    requestedAt: req.requestTime, //this came from middleware
     results: tours.length,
     data: {
       tours,
