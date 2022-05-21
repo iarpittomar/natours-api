@@ -10,7 +10,6 @@ app.use(express.json());
 
 //our own middleware
 app.use((req, res, next) => {
-  console.log('hollo from the middleware 👋');
   next();
 });
 
@@ -135,17 +134,17 @@ const deleteUser = (req, res) => {
   });
 };
 
-// app.get('/api/v1/tours', getAllTours);
-// app.get('/api/v1/tours/:id', getTour);
-// app.post('/api/v1/tours', createTour);
-// app.post('/api/v1/tours', updateTour);
-// app.post('/api/v1/tours', deleteTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-app.route('/api/v1/tours/:id').get(getTour).post(updateTour).delete(deleteTour);
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
-app.route('/api/v1/users/:id').get(getUser).post(updateUser).delete(deleteUser);
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTour).post(updateTour).delete(deleteTour);
+
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).post(updateUser).delete(deleteUser);
 
 const port = 3000;
 
